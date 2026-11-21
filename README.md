@@ -1,30 +1,30 @@
-
+﻿
 
 <div align="center">
 
 
 
-\# Wazuh SOC Home Lab
+# Wazuh SOC Home Lab
 
 
 
-\### Windows Threat Detection \& Security Monitoring
+### Windows Threat Detection & Security Monitoring
 
 
 
-A hands-on cybersecurity project focused on Windows endpoint monitoring, custom detection engineering, security event analysis, and MITRE ATT\&CK mapping.
+A hands-on cybersecurity project focused on Windows endpoint monitoring, custom detection engineering, security event analysis, and MITRE ATT&CK mapping.
 
 
 
-!\[Wazuh](https://img.shields.io/badge/Wazuh-SIEM-005571?style=for-the-badge)
+![Wazuh](https://img.shields.io/badge/Wazuh-SIEM-005571?style=for-the-badge)
 
-!\[Sysmon](https://img.shields.io/badge/Sysmon-Windows%20Telemetry-0078D4?style=for-the-badge)
+![Sysmon](https://img.shields.io/badge/Sysmon-Windows%20Telemetry-0078D4?style=for-the-badge)
 
-!\[Windows](https://img.shields.io/badge/Windows-11-0078D4?style=for-the-badge)
+![Windows](https://img.shields.io/badge/Windows-11-0078D4?style=for-the-badge)
 
-!\[MITRE ATT\&CK](https://img.shields.io/badge/MITRE-ATT%26CK-C62828?style=for-the-badge)
+![MITRE ATT&CK](https://img.shields.io/badge/MITRE-ATT%26CK-C62828?style=for-the-badge)
 
-!\[VirtualBox](https://img.shields.io/badge/VirtualBox-Lab-183A61?style=for-the-badge)
+![VirtualBox](https://img.shields.io/badge/VirtualBox-Lab-183A61?style=for-the-badge)
 
 
 
@@ -32,15 +32,15 @@ A hands-on cybersecurity project focused on Windows endpoint monitoring, custom 
 
 
 
-\---
+---
 
 
 
-\## Project Overview
+## Project Overview
 
 
 
-This project implements a Windows-focused Security Operations Center (SOC) home laboratory using \*\*Wazuh SIEM\*\*, \*\*Sysmon\*\*, and Windows security auditing.
+This project implements a Windows-focused Security Operations Center (SOC) home laboratory using **Wazuh SIEM**, **Sysmon**, and Windows security auditing.
 
 
 
@@ -52,11 +52,11 @@ The laboratory demonstrates a practical detection engineering workflow:
 
 
 
-\*\*Security Event Collection → Event Analysis → Detection Rules → Wazuh Alerts → Validation\*\*
+**Security Event Collection â†’ Event Analysis â†’ Detection Rules â†’ Wazuh Alerts â†’ Validation**
 
 
 
-\## Lab Architecture
+## Lab Architecture
 
 
 
@@ -64,51 +64,51 @@ The laboratory demonstrates a practical detection engineering workflow:
 
 flowchart LR
 
-&#x20;   K\["Kali Linux<br/>Security Testing"]
+    K["Kali Linux<br/>Security Testing"]
 
-&#x20;   W\["Windows 11<br/>Sysmon + Wazuh Agent"]
+    W["Windows 11<br/>Sysmon + Wazuh Agent"]
 
-&#x20;   S\["Ubuntu 24.04<br/>Wazuh Server"]
+    S["Ubuntu 24.04<br/>Wazuh Server"]
 
-&#x20;   D\["Wazuh Dashboard<br/>Alert Analysis"]
-
-
-
-&#x20;   K -.->|"Controlled simulations"| W
-
-&#x20;   W -->|"Security events<br/>TCP 1514"| S
-
-&#x20;   S --> D
+    D["Wazuh Dashboard<br/>Alert Analysis"]
 
 
 
-&#x20;   classDef testing fill:#fef3c7,stroke:#d97706,color:#78350f
+    K -.->|"Controlled simulations"| W
 
-&#x20;   classDef endpoint fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    W -->|"Security events<br/>TCP 1514"| S
 
-&#x20;   classDef server fill:#dcfce7,stroke:#16a34a,color:#14532d
+    S --> D
 
 
 
-&#x20;   class K testing
+    classDef testing fill:#fef3c7,stroke:#d97706,color:#78350f
 
-&#x20;   class W endpoint
+    classDef endpoint fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
 
-&#x20;   class S,D server
+    classDef server fill:#dcfce7,stroke:#16a34a,color:#14532d
+
+
+
+    class K testing
+
+    class W endpoint
+
+    class S,D server
 
 ```
 
 
 
-The laboratory uses VirtualBox with \*\*Host-Only networking\*\* for internal communication and \*\*NAT\*\* for outbound connectivity.
+The laboratory uses VirtualBox with **Host-Only networking** for internal communication and **NAT** for outbound connectivity.
 
 
 
-\[View detailed network architecture](architecture/network-architecture.md)
+[View detailed network architecture](architecture/network-architecture.md)
 
 
 
-\## Technology Stack
+## Technology Stack
 
 
 
@@ -132,11 +132,11 @@ The laboratory uses VirtualBox with \*\*Host-Only networking\*\* for internal co
 
 | Virtualization | VirtualBox | Virtual laboratory infrastructure |
 
-| Detection framework | MITRE ATT\&CK | Detection technique mapping |
+| Detection framework | MITRE ATT&CK | Detection technique mapping |
 
 
 
-\## Detection Scenarios
+## Detection Scenarios
 
 
 
@@ -148,37 +148,37 @@ Eight security monitoring scenarios are documented with their respective detecti
 
 |:--:|:---|:---|:---|
 
-| 01 | Suspicious PowerShell Execution | Process execution and script blocks | \[View scenario](attack-simulations/01-powershell.md) |
+| 01 | Suspicious PowerShell Execution | Process execution and script blocks | [View scenario](attack-simulations/01-powershell.md) |
 
-| 02 | LSASS Process Access | Credential access monitoring | \[View scenario](attack-simulations/02-lsass.md) |
+| 02 | LSASS Process Access | Credential access monitoring | [View scenario](attack-simulations/02-lsass.md) |
 
-| 03 | Scheduled Task Creation | Scheduled task monitoring | \[View scenario](attack-simulations/03-scheduled-tasks.md) |
+| 03 | Scheduled Task Creation | Scheduled task monitoring | [View scenario](attack-simulations/03-scheduled-tasks.md) |
 
-| 04 | Windows Event Log Clearing | Defense evasion monitoring | \[View scenario](attack-simulations/04-event-log-clearing.md) |
+| 04 | Windows Event Log Clearing | Defense evasion monitoring | [View scenario](attack-simulations/04-event-log-clearing.md) |
 
-| 05 | Registry Persistence | Autorun registry modifications | \[View scenario](attack-simulations/05-registry-persistence.md) |
+| 05 | Registry Persistence | Autorun registry modifications | [View scenario](attack-simulations/05-registry-persistence.md) |
 
-| 06 | System Reconnaissance | Account discovery commands | \[View scenario](attack-simulations/06-system-reconnaissance.md) |
+| 06 | System Reconnaissance | Account discovery commands | [View scenario](attack-simulations/06-system-reconnaissance.md) |
 
-| 07 | Network Scanning | Blocked TCP traffic and scan indicators | \[View scenario](attack-simulations/07-network-scanning.md) |
+| 07 | Network Scanning | Blocked TCP traffic and scan indicators | [View scenario](attack-simulations/07-network-scanning.md) |
 
-| 08 | File Integrity Monitoring | File creation, modification, and deletion | \[View scenario](attack-simulations/08-file-integrity-monitoring.md) |
-
-
-
-\[Explore all detection scenarios](attack-simulations/README.md)
+| 08 | File Integrity Monitoring | File creation, modification, and deletion | [View scenario](attack-simulations/08-file-integrity-monitoring.md) |
 
 
 
-\## MITRE ATT\&CK Coverage
+[Explore all detection scenarios](attack-simulations/README.md)
 
 
 
-Custom Wazuh detection rules are mapped to relevant MITRE ATT\&CK techniques.
+## MITRE ATT&CK Coverage
 
 
 
-| Technique | MITRE ATT\&CK ID | Detection Focus |
+Custom Wazuh detection rules are mapped to relevant MITRE ATT&CK techniques.
+
+
+
+| Technique | MITRE ATT&CK ID | Detection Focus |
 
 |:---|:---|:---|
 
@@ -198,11 +198,11 @@ Custom Wazuh detection rules are mapped to relevant MITRE ATT\&CK techniques.
 
 
 
-> MITRE ATT\&CK mappings describe the behavior monitored by the detection rules. An alert does not, by itself, prove malicious activity.
+> MITRE ATT&CK mappings describe the behavior monitored by the detection rules. An alert does not, by itself, prove malicious activity.
 
 
 
-\## Detection Evidence
+## Detection Evidence
 
 
 
@@ -210,21 +210,21 @@ The laboratory documentation includes Wazuh alert screenshots covering:
 
 
 
-\- Suspicious PowerShell execution and script blocks
+- Suspicious PowerShell execution and script blocks
 
-\- LSASS process access
+- LSASS process access
 
-\- Scheduled task activity
+- Scheduled task activity
 
-\- Windows event log clearing
+- Windows event log clearing
 
-\- Registry autorun modifications
+- Registry autorun modifications
 
-\- Account discovery
+- Account discovery
 
-\- Network scanning indicators
+- Network scanning indicators
 
-\- File integrity monitoring
+- File integrity monitoring
 
 
 
@@ -232,7 +232,7 @@ Evidence is presented within the individual scenario documentation.
 
 
 
-\## Repository Structure
+## Repository Structure
 
 
 
@@ -240,71 +240,71 @@ Evidence is presented within the individual scenario documentation.
 
 wazuh-soc-homelab/
 
-├── architecture/
+â”œâ”€â”€ architecture/
 
-│   └── network-architecture.md
+â”‚   â””â”€â”€ network-architecture.md
 
-├── configs/
+â”œâ”€â”€ configs/
 
-│   ├── sysmon/
+â”‚   â”œâ”€â”€ sysmon/
 
-│   ├── wazuh/
+â”‚   â”œâ”€â”€ wazuh/
 
-│   └── windows/
+â”‚   â””â”€â”€ windows/
 
-├── rules/
+â”œâ”€â”€ rules/
 
-│   └── soc\_lab\_rules.xml
+â”‚   â””â”€â”€ soc\_lab\_rules.xml
 
-├── attack-simulations/
+â”œâ”€â”€ attack-simulations/
 
-│   ├── 01-powershell.md
+â”‚   â”œâ”€â”€ 01-powershell.md
 
-│   ├── 02-lsass.md
+â”‚   â”œâ”€â”€ 02-lsass.md
 
-│   ├── 03-scheduled-tasks.md
+â”‚   â”œâ”€â”€ 03-scheduled-tasks.md
 
-│   ├── 04-event-log-clearing.md
+â”‚   â”œâ”€â”€ 04-event-log-clearing.md
 
-│   ├── 05-registry-persistence.md
+â”‚   â”œâ”€â”€ 05-registry-persistence.md
 
-│   ├── 06-system-reconnaissance.md
+â”‚   â”œâ”€â”€ 06-system-reconnaissance.md
 
-│   ├── 07-network-scanning.md
+â”‚   â”œâ”€â”€ 07-network-scanning.md
 
-│   ├── 08-file-integrity-monitoring.md
+â”‚   â”œâ”€â”€ 08-file-integrity-monitoring.md
 
-│   └── README.md
+â”‚   â””â”€â”€ README.md
 
-└── screenshots/
+â””â”€â”€ screenshots/
 
 ```
 
 
 
-\## Key Learning Outcomes
+## Key Learning Outcomes
 
 
 
-\- Deployment and configuration of a Windows-focused SIEM laboratory
+- Deployment and configuration of a Windows-focused SIEM laboratory
 
-\- Centralized Windows event collection using Wazuh
+- Centralized Windows event collection using Wazuh
 
-\- Sysmon-based endpoint monitoring
+- Sysmon-based endpoint monitoring
 
-\- Custom Wazuh detection rule development
+- Custom Wazuh detection rule development
 
-\- Security event investigation and alert analysis
+- Security event investigation and alert analysis
 
-\- Detection mapping to MITRE ATT\&CK
+- Detection mapping to MITRE ATT&CK
 
-\- Controlled simulation and evidence-based validation
+- Controlled simulation and evidence-based validation
 
-\- File integrity monitoring on Windows
+- File integrity monitoring on Windows
 
 
 
-\## Scope and Disclaimer
+## Scope and Disclaimer
 
 
 
@@ -316,7 +316,7 @@ All simulations are conducted in an authorized virtual laboratory environment. T
 
 
 
-\---
+---
 
 
 
@@ -324,15 +324,17 @@ All simulations are conducted in an authorized virtual laboratory environment. T
 
 
 
-\*\*Built as a personal cybersecurity engineering project.\*\*
+**Built as a personal cybersecurity engineering project.**
 
 
 
-\*Windows Security Monitoring · Detection Engineering · SOC Operations\*
+*Windows Security Monitoring Â· Detection Engineering Â· SOC Operations*
 
 
 
 </div>
+
+
 
 
 
