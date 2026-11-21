@@ -8,20 +8,10 @@ LSASS is a security-sensitive Windows process. Unauthorized access to its memory
 
 ## Detection Coverage
 
-| Rule ID | Level | Detection | Result |
-|---|---|---|---|
-| 100400 | 6 | LSASS process access monitoring | Alerts observed |
-| 100401 | 10 | Suspicious LSASS access from a user-writable location | 2 alerts detected |
-
-## Telemetry Source
-
-| Component | Details |
-|---|---|
-| Endpoint | Windows 11 |
-| Monitoring tool | Sysmon |
-| Event ID | 10 - ProcessAccess |
-| SIEM | Wazuh |
-| Monitored agent | windows-sql-agent |
+| Rule ID | Level | Detection |
+|---|---|---|
+| 100400 | 6 | LSASS process access monitoring |
+| 100401 | 10 | Suspicious LSASS access from a user-writable location |
 
 ## MITRE ATT&CK
 
