@@ -23,15 +23,10 @@ The laboratory is designed to support Windows security monitoring, centralized l
 ## 2. Virtual Machines
 
 
-
 | Virtual Machine | Operating System | Role | Host-Only IP |
-
 |---|---|---|---|
-
 | Wazuh Server | Ubuntu 24.04 | SIEM server and security monitoring | 192.168.56.10 |
-
 | Windows Endpoint | Windows 11 | Monitored endpoint with Wazuh Agent and Sysmon | 192.168.56.30 |
-
 | Kali Linux | Kali Linux | Security testing workstation | 192.168.56.107 |
 
 
@@ -63,13 +58,9 @@ Each virtual machine has two network interfaces:
 
 
 | Machine | NAT IP | Host-Only IP |
-
 |---|---|---|
-
 | Wazuh Server | 10.0.2.15 | 192.168.56.10 |
-
 | Windows Endpoint | 10.0.2.15 | 192.168.56.30 |
-
 | Kali Linux | 10.0.2.15 | 192.168.56.107 |
 
 
@@ -163,45 +154,24 @@ It is intended for authorized, controlled security simulations against laborator
 ## 5. Security Event Flow
 
 
-
-
-
 ```mermaid
-
 flowchart TB
-
     K["Kali Linux<br/>192.168.56.107"]
-
     W["Windows 11<br/>Wazuh Agent + Sysmon<br/>192.168.56.30"]
-
-    S["Ubuntu<br/>Wazuh Server<br/>192.168.56.10"]
-
+    S["Ubuntu 24.04<br/>Wazuh Server<br/>192.168.56.10"]
     D["Wazuh Dashboard<br/>Security Alerts"]
 
-
-
     K -.->|Controlled simulations| W
-
     W -->|Security events - TCP 1514| S
-
     S --> D
 
-
-
+    classDef testing fill:#fef3c7,stroke:#d97706,color:#78350f
     classDef endpoint fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
-
     classDef server fill:#dcfce7,stroke:#16a34a,color:#14532d
 
-    classDef testing fill:#fef3c7,stroke:#d97706,color:#78350f
-
-
-
     class K testing
-
     class W endpoint
-
     class S,D server
-
 ```
 
 
