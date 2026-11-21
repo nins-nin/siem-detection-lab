@@ -1,10 +1,10 @@
 
 
-\# Network Architecture — Wazuh SOC Home Lab
+# Network Architecture — Wazuh SOC Home Lab
 
 
 
-\## 1. Overview
+## 1. Overview
 
 
 
@@ -20,7 +20,7 @@ The laboratory is designed to support Windows security monitoring, centralized l
 
 
 
-\## 2. Virtual Machines
+## 2. Virtual Machines
 
 
 
@@ -36,15 +36,15 @@ The laboratory is designed to support Windows security monitoring, centralized l
 
 
 
-\## 3. Network Configuration
+## 3. Network Configuration
 
 
 
-\*\*Hypervisor:\*\* Oracle VirtualBox
+**Hypervisor:** Oracle VirtualBox
 
 
 
-\*\*Host-Only network:\*\* `192.168.56.0/24`
+**Host-Only network:** `192.168.56.0/24`
 
 
 
@@ -52,13 +52,13 @@ Each virtual machine has two network interfaces:
 
 
 
-\- \*\*NAT:\*\* Provides outbound network access through VirtualBox.
+- **NAT:** Provides outbound network access through VirtualBox.
 
-\- \*\*Host-Only Adapter:\*\* Enables communication between the laboratory machines and the host system.
+- **Host-Only Adapter:** Enables communication between the laboratory machines and the host system.
 
 
 
-\### IP Addressing
+### IP Addressing
 
 
 
@@ -82,11 +82,11 @@ Internal laboratory communication uses the Host-Only addresses.
 
 
 
-\## 4. Security Monitoring Architecture
+## 4. Security Monitoring Architecture
 
 
 
-\### Wazuh Server
+### Wazuh Server
 
 
 
@@ -98,17 +98,17 @@ Its responsibilities include:
 
 
 
-\- Receiving security events from monitored endpoints.
+- Receiving security events from monitored endpoints.
 
-\- Processing events through Wazuh detection rules.
+- Processing events through Wazuh detection rules.
 
-\- Generating security alerts.
+- Generating security alerts.
 
-\- Providing centralized security monitoring and investigation capabilities.
+- Providing centralized security monitoring and investigation capabilities.
 
 
 
-\### Windows Endpoint
+### Windows Endpoint
 
 
 
@@ -116,13 +116,13 @@ The Windows 11 virtual machine is monitored using:
 
 
 
-\- \*\*Wazuh Agent:\*\* Collects and forwards configured security events.
+- **Wazuh Agent:** Collects and forwards configured security events.
 
-\- \*\*Sysmon:\*\* Generates detailed Windows system activity events.
+- **Sysmon:** Generates detailed Windows system activity events.
 
-\- \*\*Windows Event Logs:\*\* Provide operating system and security auditing information.
+- **Windows Event Logs:** Provide operating system and security auditing information.
 
-\- \*\*File Integrity Monitoring (FIM):\*\* Monitors changes to selected files and directories.
+- **File Integrity Monitoring (FIM):** Monitors changes to selected files and directories.
 
 
 
@@ -130,17 +130,17 @@ Configured event sources include:
 
 
 
-\- Windows Security
+- Windows Security
 
-\- Windows System
+- Windows System
 
-\- Windows Application
+- Windows Application
 
-\- Sysmon Operational
+- Sysmon Operational
 
-\- PowerShell Operational
+- PowerShell Operational
 
-\- Task Scheduler Operational
+- Task Scheduler Operational
 
 
 
@@ -148,7 +148,7 @@ The Wazuh Agent is configured to communicate with the Wazuh Server at `192.168.5
 
 
 
-\### Kali Linux
+### Kali Linux
 
 
 
@@ -160,7 +160,7 @@ It is intended for authorized, controlled security simulations against laborator
 
 
 
-\## 5. Security Event Flow
+## 5. Security Event Flow
 
 
 
@@ -170,43 +170,43 @@ It is intended for authorized, controlled security simulations against laborator
 
 flowchart TB
 
-&#x20;   K\["Kali Linux<br/>192.168.56.107"]
+    K["Kali Linux<br/>192.168.56.107"]
 
-&#x20;   W\["Windows 11<br/>Wazuh Agent + Sysmon<br/>192.168.56.30"]
+    W["Windows 11<br/>Wazuh Agent + Sysmon<br/>192.168.56.30"]
 
-&#x20;   S\["Ubuntu<br/>Wazuh Server<br/>192.168.56.10"]
+    S["Ubuntu<br/>Wazuh Server<br/>192.168.56.10"]
 
-&#x20;   D\["Wazuh Dashboard<br/>Security Alerts"]
-
-
-
-&#x20;   K -.->|Controlled simulations| W
-
-&#x20;   W -->|Security events - TCP 1514| S
-
-&#x20;   S --> D
+    D["Wazuh Dashboard<br/>Security Alerts"]
 
 
 
-&#x20;   classDef endpoint fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    K -.->|Controlled simulations| W
 
-&#x20;   classDef server fill:#dcfce7,stroke:#16a34a,color:#14532d
+    W -->|Security events - TCP 1514| S
 
-&#x20;   classDef testing fill:#fef3c7,stroke:#d97706,color:#78350f
+    S --> D
 
 
 
-&#x20;   class K testing
+    classDef endpoint fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
 
-&#x20;   class W endpoint
+    classDef server fill:#dcfce7,stroke:#16a34a,color:#14532d
 
-&#x20;   class S,D server
+    classDef testing fill:#fef3c7,stroke:#d97706,color:#78350f
+
+
+
+    class K testing
+
+    class W endpoint
+
+    class S,D server
 
 ```
 
 
 
-\## 6. Network Isolation
+## 6. Network Isolation
 
 
 
@@ -226,7 +226,7 @@ Host-Only networking does not, by itself, guarantee complete isolation from the 
 
 
 
-\## 7. Configuration Files
+## 7. Configuration Files
 
 
 
@@ -234,11 +234,11 @@ The following configuration files are maintained in this repository:
 
 
 
-\- `configs/sysmon/sysmon-config.xml` — Sysmon event collection configuration.
+- `configs/sysmon/sysmon-config.xml` — Sysmon event collection configuration.
 
-\- `configs/windows/ossec.conf` — Windows Wazuh Agent configuration.
+- `configs/windows/ossec.conf` — Windows Wazuh Agent configuration.
 
-\- `rules/soc\_lab\_rules.xml` — Custom Wazuh detection rules.
+- `rules/soc_lab_rules.xml` — Custom Wazuh detection rules.
 
 
 
