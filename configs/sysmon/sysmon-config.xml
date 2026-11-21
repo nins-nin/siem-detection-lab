@@ -1,0 +1,24 @@
+<Sysmon schemaversion="4.91">
+  <HashAlgorithms>sha256</HashAlgorithms>
+
+  <EventFiltering>
+
+    <!-- EID 1: Process creation -->
+    <ProcessCreate onmatch="exclude" />
+
+    <!-- EID 3: Network connections -->
+    <NetworkConnect onmatch="exclude" />
+
+    <!-- EID 10: LSASS process access -->
+    <ProcessAccess onmatch="include">
+      <TargetImage condition="end with">\lsass.exe</TargetImage>
+    </ProcessAccess>
+
+    <!-- EID 12, 13, 14: Registry persistence -->
+    <RegistryEvent onmatch="include">
+      <TargetObject condition="contains">\CurrentVersion\Run</TargetObject>
+      <TargetObject condition="contains">\CurrentVersion\Winlogon\</TargetObject>
+    </RegistryEvent>
+
+  </EventFiltering>
+</Sysmon>
