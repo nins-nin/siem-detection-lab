@@ -1,6 +1,6 @@
 <div align="center">
 
-# Wazuh SOC Home Lab
+# siem-detection-lab
 
 ### Windows Threat Detection & Security Monitoring
 
