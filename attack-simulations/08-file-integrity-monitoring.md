@@ -20,8 +20,9 @@ The Wazuh Dashboard recorded alerts for file creation, modification, and deletio
 
 ## Evidence
 
-![Wazuh FIM alerts](screenshots/08-file-integrity-monitoring.png)
+![Wazuh FIM alerts](../screenshots/08-file-integrity-monitoring.png)
 
 ## Conclusion
 
 File integrity monitoring generated alerts for changes to monitored files, demonstrating visibility into file creation, modification, and deletion.
+
