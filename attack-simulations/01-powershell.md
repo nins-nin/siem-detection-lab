@@ -39,9 +39,9 @@ The following custom detection rules generated alerts in the Wazuh Dashboard dur
 
 | Rule ID | Severity | Observed Results | Validation |
 |---|---|---|---|
-| 100410 | Level 8 | 1 alert ? November 18, 2026 | Confirmed |
+| 100410 | Level 8 | 1 alert detected | Confirmed |
 | 100411 | Level 10 | Not demonstrated by the screenshots below | Not evidenced here |
-| 100412 | Level 9 | 2 alerts ? November 21, 2026 | Confirmed |
+| 100412 | Level 9 | 2 alerts detected | Confirmed |
 
 **Monitored endpoint:** `windows-sql-agent`
 
@@ -49,11 +49,11 @@ These observations confirm that Wazuh generated alerts for suspicious PowerShell
 
 ## Screenshots
 
-### Rule 100410 ? Suspicious PowerShell Execution Parameters
+### Rule 100410 - Suspicious PowerShell Execution Parameters
 
 ![Wazuh alert for rule 100410](../screenshots/powershell-rule-100410.png)
 
-### Rule 100412 ? Suspicious PowerShell Script Block
+### Rule 100412 - Suspicious PowerShell Script Block
 
 ![Wazuh alerts for rule 100412](../screenshots/powershell-rule-100412.png)
 
