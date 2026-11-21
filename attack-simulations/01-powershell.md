@@ -40,7 +40,6 @@ The following custom detection rules generated alerts in the Wazuh Dashboard dur
 | Rule ID | Severity | Observed Results | Validation |
 |---|---|---|---|
 | 100410 | Level 8 | 1 alert detected | Confirmed |
-| 100411 | Level 10 | Not demonstrated by the screenshots below | Not evidenced here |
 | 100412 | Level 9 | 2 alerts detected | Confirmed |
 
 **Monitored endpoint:** `windows-sql-agent`
