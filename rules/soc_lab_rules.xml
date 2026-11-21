@@ -1,0 +1,169 @@
+<!-- SOC Home Lab - Custom Windows Detection Rules -->
+<!-- Wazuh 4.14.6 | Windows 11 | Sysmon -->
+<!-- Detection engineering: Windows endpoint monitoring -->
+
+<group name="soc_lab,windows,">
+
+  <!-- ========================================== -->
+  <!-- 1. LSASS ACCESS - SYSMON EID 10            -->
+  <!-- ========================================== -->
+
+  <rule id="100400" level="6">
+    <if_group>sysmon_event_10</if_group>
+    <field name="win.eventdata.targetImage" type="pcre2">(?i)lsass\.exe$</field>
+    <description>SOC-LAB: LSASS process access by $(win.eventdata.sourceImage)</description>
+    <group>lsass_access,</group>
+  </rule>
+
+  <rule id="100401" level="10">
+    <if_group>sysmon_event_10</if_group>
+    <field name="win.eventdata.targetImage" type="pcre2">(?i)lsass\.exe$</field>
+    <field name="win.eventdata.sourceImage" type="pcre2">(?i)(Downloads|AppData|Temp|Desktop)</field>
+    <description>SOC-LAB: Suspicious LSASS access from user-writable location</description>
+    <mitre><id>T1003.001</id></mitre>
+    <group>credential_access,</group>
+  </rule>
+
+  <rule id="100402" level="12">
+    <if_group>sysmon_event_10</if_group>
+    <field name="win.eventdata.targetImage" type="pcre2">(?i)lsass\.exe$</field>
+    <field name="win.eventdata.sourceImage" type="pcre2">(?i)mimikatz[^\\]*\.exe$</field>
+    <description>SOC-LAB: Mimikatz-named process accessing LSASS</description>
+    <mitre><id>T1003.001</id></mitre>
+    <group>credential_access,</group>
+  </rule>
+
+  <!-- ========================================== -->
+  <!-- 2. POWERSHELL - SYSMON EID 1               -->
+  <!-- ========================================== -->
+
+  <rule id="100410" level="8">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.image" type="pcre2">(?i)(powershell|pwsh)\.exe$</field>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)(-(enc|encodedcommand)\b|-(executionpolicy|ep)\s+bypass\b)</field>
+    <description>SOC-LAB: PowerShell launched with suspicious execution parameters</description>
+    <mitre><id>T1059.001</id></mitre>
+    <group>powershell,suspicious_execution,</group>
+  </rule>
+
+  <rule id="100411" level="10">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.image" type="pcre2">(?i)(powershell|pwsh)\.exe$</field>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)(?=.*(?:DownloadString|DownloadFile|Invoke-WebRequest|\biwr\b))(?=.*(?:Invoke-Expression|\bIEX\b|Start-Process))</field>
+    <description>SOC-LAB: PowerShell download-and-execute indicators</description>
+    <mitre><id>T1059.001</id></mitre>
+    <group>powershell,suspicious_execution,</group>
+  </rule>
+
+  <!-- ========================================== -->
+  <!-- 3. POWERSHELL SCRIPT BLOCK - EID 4104      -->
+  <!-- ========================================== -->
+
+  <rule id="100412" level="9">
+    <if_group>windows</if_group>
+    <field name="win.system.channel">^Microsoft-Windows-PowerShell/Operational$</field>
+    <field name="win.system.eventID">^4104$</field>
+    <field name="win.eventdata.scriptBlockText" type="pcre2">(?i)(Invoke-Expression|DownloadString|EncodedCommand)</field>
+    <description>SOC-LAB: Suspicious PowerShell script block detected</description>
+    <mitre><id>T1059.001</id></mitre>
+    <group>powershell,script_block,</group>
+  </rule>
+
+  <!-- ========================================== -->
+  <!-- 4. REGISTRY PERSISTENCE - SYSMON EID 13    -->
+  <!-- ========================================== -->
+
+  <rule id="100421" level="9">
+  <if_sid>92302</if_sid>
+  <field name="win.eventdata.targetObject" type="pcre2">(?i)\\CurrentVersion\\Run(Once)?\\</field>
+  <description>SOC-LAB: Registry autorun value modified: $(win.eventdata.targetObject)</description>
+  <mitre><id>T1547.001</id></mitre>
+  <group>registry_persistence,autorun,</group>
+</rule>
+
+  <!-- ========================================== -->
+  <!-- 5. REGISTRY RENAME - SYSMON EID 14         -->
+  <!-- ========================================== -->
+
+  <rule id="100422" level="8">
+    <if_group>sysmon_event_14</if_group>
+    <field name="win.eventdata.targetObject" type="pcre2">(?i)\\CurrentVersion\\Run(Once)?\\</field>
+    <description>SOC-LAB: Registry autorun entry renamed</description>
+    <mitre><id>T1547.001</id></mitre>
+    <group>registry_persistence,</group>
+  </rule>
+
+  <!-- ========================================== -->
+  <!-- 6. SCHEDULED TASKS                         -->
+  <!-- ========================================== -->
+
+  <rule id="100430" level="8">
+    <if_group>windows</if_group>
+    <field name="win.system.eventID">^4698$</field>
+    <field name="win.system.channel">^Security$</field>
+    <description>SOC-LAB: Scheduled task created: $(win.eventdata.taskName)</description>
+    <mitre><id>T1053.005</id></mitre>
+    <group>scheduled_task,persistence,</group>
+  </rule>
+
+  <rule id="100431" level="7">
+    <if_group>windows</if_group>
+    <field name="win.system.eventID">^106$</field>
+    <field name="win.system.providerName">^Microsoft-Windows-TaskScheduler$</field>
+    <description>SOC-LAB: Task Scheduler registered a task</description>
+    <mitre><id>T1053.005</id></mitre>
+    <group>scheduled_task,</group>
+  </rule>
+
+  <!-- ========================================== -->
+  <!-- 7. EVENT LOG CLEARING                      -->
+  <!-- ========================================== -->
+
+  <rule id="100460" level="12">
+    <field name="win.system.eventID">^1102$</field>
+    <field name="win.system.channel">^Security$</field>
+    <description>SOC-LAB: Windows Security audit log cleared</description>
+    <mitre><id>T1070.001</id></mitre>
+    <group>log_clearing,defense_evasion,</group>
+  </rule>
+
+  <rule id="100461" level="10">
+    <if_group>windows</if_group>
+    <field name="win.system.eventID">^104$</field>
+    <field name="win.system.channel">^System$</field>
+    <description>SOC-LAB: Windows event log cleared (Event ID 104)</description>
+    <mitre><id>T1070.001</id></mitre>
+    <group>log_clearing,defense_evasion,</group>
+  </rule>
+
+  <!-- ========================================== -->
+  <!-- 8. SYSTEM AND ACCOUNT DISCOVERY            -->
+  <!-- ========================================== -->
+
+  <rule id="100470" level="7">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)(whoami\.exe.*\s/all\b|net\s+user\b|net\s+localgroup\b|Get-LocalUser\b)</field>
+    <description>SOC-LAB: Account discovery command detected</description>
+    <mitre><id>T1087.001</id></mitre>
+    <group>discovery,account_discovery,</group>
+  </rule>
+  <!-- Network reconnaissance: inbound TCP packets blocked -->
+<rule id="100480" level="3">
+  <if_sid>60104</if_sid>
+  <field name="win.system.eventID">^5152$</field>
+  <field name="win.eventdata.protocol">^6$</field>
+  <field name="win.eventdata.direction">^%%14592$</field>
+  <description>SOC-LAB: Inbound TCP packet blocked by Windows Filtering Platform</description>
+  <group>network_reconnaissance,</group>
+</rule>
+  <!-- Correlation: repeated blocked packets from the same source -->
+<rule id="100481" level="10" frequency="20" timeframe="10" ignore="60">
+  <if_matched_sid>100480</if_matched_sid>
+  <same_field>win.eventdata.sourceAddress</same_field>
+  <description>SOC-LAB: Possible TCP network scan - repeated blocked packets from the same source IP</description>
+  <mitre>
+    <id>T1046</id>
+  </mitre>
+  <group>network_reconnaissance,port_scan,</group>
+</rule>
+</group>
